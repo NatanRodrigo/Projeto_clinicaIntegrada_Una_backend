@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241115180843_Agendamento_Consulta_Sala")]
+    partial class Agendamento_Consulta_Sala
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,6 +46,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DataHoraInicio")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid?>("EquipeId")
+                        .HasColumnType("char(36)");
+
                     b.Property<DateTime?>("ExcludedAt")
                         .HasColumnType("datetime(6)");
 
@@ -68,6 +74,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EquipeId");
 
                     b.HasIndex("PacienteId");
 
@@ -97,9 +105,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DataHoraInicio")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("EquipeId")
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("Especialidade")
                         .HasColumnType("int");
 
@@ -126,8 +131,6 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AgendamentoId")
                         .IsUnique();
-
-                    b.HasIndex("EquipeId");
 
                     b.ToTable("Consultas");
                 });
@@ -572,6 +575,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Agendamento", b =>
                 {
+                    b.HasOne("Domain.Entities.Equipe", "Equipe")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("EquipeId");
+
                     b.HasOne("Domain.Entities.Paciente", "Paciente")
                         .WithMany("Agendamentos")
                         .HasForeignKey("PacienteId")
@@ -581,6 +588,8 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Sala", "Sala")
                         .WithMany("Reservas")
                         .HasForeignKey("SalaId");
+
+                    b.Navigation("Equipe");
 
                     b.Navigation("Paciente");
 
@@ -595,15 +604,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Equipe", "Equipe")
-                        .WithMany("Consultas")
-                        .HasForeignKey("EquipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Agendamento");
-
-                    b.Navigation("Equipe");
                 });
 
             modelBuilder.Entity("Domain.Entities.EquipeProfissional", b =>
@@ -695,7 +696,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Equipe", b =>
                 {
-                    b.Navigation("Consultas");
+                    b.Navigation("Agendamentos");
 
                     b.Navigation("Profissionais");
                 });
