@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using FluentValidation;
 
 namespace Application.Handlers.Agendamentos.Commands
@@ -12,6 +12,8 @@ namespace Application.Handlers.Agendamentos.Commands
 
             RuleFor(v => v.DataHoraInicio)
                 .NotEmpty().WithMessage("DataHoraInicio é obrigatório.");
+            RuleFor(v => v.DataHoraFim)
+                .NotEmpty().WithMessage("DataHoraFim é obrigatório.");
             RuleFor(v => v.Tipo)
                 .NotEmpty().WithMessage("Tipo é obrigatório.");
             RuleFor(v => v.Status)

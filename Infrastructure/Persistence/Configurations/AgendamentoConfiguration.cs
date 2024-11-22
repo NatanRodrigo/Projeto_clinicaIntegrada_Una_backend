@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,10 +15,6 @@ namespace Infrastructure.Persistence.Configurations
             builder.HasOne(p => p.Paciente)
                 .WithMany(p => p.Agendamentos)
                 .HasForeignKey(p => p.PacienteId);
-
-            //builder.HasOne(p => p.Equipe)
-            //    .WithMany(p => p.Agendamentos)
-            //    .HasForeignKey(p => p.EquipeId);
 
             builder.HasOne(a => a.Consulta)
                 .WithOne(b => b.Agendamento)

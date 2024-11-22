@@ -1,9 +1,9 @@
-﻿namespace Domain.Enums
+namespace Domain.Enums
 {
     public enum AgendamentoStatus
     {
-        Reservado = 0,
-        Concluido = 1,
-        Cancelado = 2
+        Reservado = 1,
+        Concluido = 2,
+        Cancelado = 3
     }
 }

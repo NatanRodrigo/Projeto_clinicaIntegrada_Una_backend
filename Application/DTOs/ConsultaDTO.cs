@@ -1,4 +1,4 @@
-﻿using Application.Mappings;
+using Application.Mappings;
 using Domain.Entities;
 using Domain.Enums;
 
@@ -8,10 +8,10 @@ namespace Application.DTOs
     {
         public Guid Id { get; set; }
         public string Observacao { get; set; }
-        public DateTime DataHoraInicio { get; set; }
+        public DateTime? DataHoraInicio { get; set; }
         public DateTime? DataHoraFim { get; set; }
-        public Especialidade Especialidade { get; set; }
-        public ConsultaStatus Status { get; set; }
+        public string Especialidade { get; set; }
+        public string Status { get; set; }
         public Guid AgendamentoId { get; set; }
         public Guid EquipeId { get; set; }
 
@@ -24,7 +24,8 @@ namespace Application.DTOs
                 .ForMember(d => d.Especialidade, opt => opt.MapFrom(s => s.Especialidade))
                 .ForMember(d => d.Status, opt => opt.MapFrom(s => s.Status))
                 .ForMember(d => d.AgendamentoId, opt => opt.MapFrom(s => s.AgendamentoId))
-                .ForMember(d => d.EquipeId, opt => opt.MapFrom(s => s.EquipeId));
+                .ForMember(d => d.EquipeId, opt => opt.MapFrom(s => s.EquipeId))
+                ;
         }
     }
 }

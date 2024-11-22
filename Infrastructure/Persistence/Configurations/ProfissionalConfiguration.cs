@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,8 +12,8 @@ namespace Infrastructure.Persistence.Configurations
             builder.Property(p => p.Nome)
                 .IsRequired();
 
-            builder.Property(p => p.RA)
-                .IsRequired(); 
+            //builder.Property(p => p.RA)
+            //    .IsRequired(); 
 
             builder.Property(p => p.Tipo)
                 .IsRequired(); 

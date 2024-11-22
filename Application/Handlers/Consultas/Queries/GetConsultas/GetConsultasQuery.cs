@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Handlers.Equipes.Queries.GetEquipeById;
 using Application.Interfaces;
 using Application.Models;
@@ -29,6 +29,7 @@ namespace Application.Handlers.Consultas.Queries.GetConsultas
         public async Task<ServiceResult<PaginatedList<ConsultaDTO>>> Handle(GetConsultasQuery request, CancellationToken cancellationToken) {
 
             var mapper = new GridifyMapper<Consulta>()
+                .AddMap("PacienteNome", c => c.Agendamento.Paciente.Nome)
                 .GenerateMappings();
 
             var gridifyQueryable = _context.Consultas
@@ -36,7 +37,7 @@ namespace Application.Handlers.Consultas.Queries.GetConsultas
                 .GridifyQueryable(request, mapper);
 
             var query = gridifyQueryable.Query;
-            var result = query.AsNoTracking().ToList();
+            var result = await query.AsNoTracking().ToListAsync(cancellationToken);
 
             var resultDTO = _mapper.Map<List<ConsultaDTO>>(result);
 

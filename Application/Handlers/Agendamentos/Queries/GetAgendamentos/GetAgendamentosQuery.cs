@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Models;
 using AutoMapper;
@@ -24,8 +24,12 @@ namespace Application.Handlers.Agendamentos.Queries.GetAgendamentos
 
         public async Task<ServiceResult<PaginatedList<AgendamentoDTO>>> Handle(GetAgendamentosQuery request, CancellationToken cancellationToken) {
 
+
+
             var mapper = new GridifyMapper<Agendamento>()
-                .GenerateMappings();
+                .GenerateMappings()
+                .AddMap("PacienteNome", agendamento => agendamento.Paciente.Nome)
+                ;
 
             var gridifyQueryable = _context.Agendamentos
                 .Where(p => !p.IsDeleted)

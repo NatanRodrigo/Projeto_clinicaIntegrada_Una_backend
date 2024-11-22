@@ -1,4 +1,4 @@
-﻿using Domain.Common;
+using Domain.Common;
 using Domain.Enums;
 
 namespace Domain.Entities
@@ -12,5 +12,6 @@ namespace Domain.Entities
 
         //Relacionamentos
         public IList<Agendamento> Reservas { get; set; }
+
     }
 }

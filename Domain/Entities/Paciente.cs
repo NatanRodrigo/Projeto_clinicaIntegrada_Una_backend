@@ -1,4 +1,4 @@
-﻿using Domain.Common;
+using Domain.Common;
 
 namespace Domain.Entities
 {
@@ -16,7 +16,6 @@ namespace Domain.Entities
         //Relacionamentos
         public IList<ListaEspera> RegistrosListaEspera { get; set; }
         public IList<Agendamento> Agendamentos { get; set; }
-
 
     }
 }
